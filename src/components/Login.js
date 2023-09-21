@@ -4,11 +4,11 @@ import { checkValidateData } from '../utils/validate'
 export const Login = () => {
     const  [isSignIn , setIsSignIn] = useState(true)
     const [errorMessage , setIsErrorMessage] = useState(null)
+    const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
     const handleButtonClick = () => {
-    
-      const message =  checkValidateData(email.current.value ,password.current.value)
+      const message =  checkValidateData(email.current.value ,password.current.value, name.current.value)
       setIsErrorMessage(message)
       
     }
@@ -23,7 +23,7 @@ export const Login = () => {
         </div>
         <form onSubmit = {(e) => e.preventDefault()}className='absolute p-12 bg-black w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-80'>
             <h1 className='font-bold text-3xl py-4'>{isSignIn ? "Sign In" : "Sign Up" }</h1>
-            {!isSignIn &&<input type='text' placeholder='Full Name' className='p-4 my-2 w-full bg-gray-700' />}
+            {!isSignIn &&<input ref={name} type='text' placeholder='Full Name' className='p-4 my-2 w-full bg-gray-700' />}
             <input ref={email} type='text' placeholder='Email Address' className='p-4 my-2 w-full bg-gray-700' />
         
             <input ref = {password} type='password' placeholder='Password' className='p-4 my-2 w-full bg-gray-700' />
