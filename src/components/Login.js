@@ -5,6 +5,10 @@ import {  createUserWithEmailAndPassword } from "firebase/auth";
 import {signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
+import {  updateProfile } from "firebase/auth";
+import { addUser } from '../utils/userSlice';
+import { useDispatch } from 'react-redux';
+
 export const Login = () => {
     const  [isSignIn , setIsSignIn] = useState(true)
     const [errorMessage , setIsErrorMessage] = useState(null)
@@ -12,7 +16,7 @@ export const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const handleButtonClick = () => {
       const message =  checkValidateData(email.current.value ,password.current.value)
       setIsErrorMessage(message)
@@ -25,7 +29,20 @@ export const Login = () => {
               .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                updateProfile(user, {
+                  displayName: name.current.value , photoURL:   "https://pbs.twimg.com/profile_images/1678792762853040128/zAZMas9T_400x400.jpg"
+                  
+                }).then(() => {
+                  // Profile updated!
+                  const {uid,displayName,email,photoURL} = user
+                  dispatch(addUser({uid:uid , displayName : displayName, email:email , photoURL: photoURL}))
                   navigate("/browse")
+                  // ...
+                }).catch((error) => {
+                  // An error occurred
+                  // ...
+                  setIsErrorMessage(error.message)
+                });
           
               })
               .catch((error) => {
