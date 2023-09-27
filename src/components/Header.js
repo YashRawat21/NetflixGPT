@@ -20,7 +20,7 @@ const Header = () => {
     
    }
    useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+  const unsubscribe  =  onAuthStateChanged(auth, (user) => {
       if (user) {
        
         const {uid,displayName,email,photoURL} = auth.currentUser
@@ -31,7 +31,9 @@ const Header = () => {
         navigate("/")
       }
     });
-    
+
+      //unsubscribe when components unmounts
+    return () => unsubscribe();
   },[])
   return (
     <div className='absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between'>
