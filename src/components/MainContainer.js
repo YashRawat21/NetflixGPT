@@ -6,12 +6,12 @@ import VideoTitle from './VideoTitle'
 const MainContainer = () => {
     const movies = useSelector(store => store.movies?.nowPlayingMovies)
          if(movies ===null) return;
-    const mainMovie = movies[0];
+    const mainMovie = movies[3];
     console.log(mainMovie)
     const {original_title , overview,id} = mainMovie;
   return (
-    <div>
-        <VideoTitle title = {original_title} overview = {overview}/>
+    <div className='relative h-[100vh]'>
+        <VideoTitle title = {original_title} />
         <VideoBackground movieId = {id}/>
     </div>
   )
