@@ -57,7 +57,7 @@ const handleSignOut = () => {
         <option value="spanish">Spanish</option>
 
       </select>}
-      <button className='px-4 py-2 mx-4 my-2 bg-purple-800 text-white rounded-lg' onClick={handleGptSearch}>GPT Search</button>
+      <button className='px-4 py-2 mx-4 my-2 bg-purple-800 text-white rounded-lg' onClick={handleGptSearch}>{showGptSearch ? "HomePage" : "GPT Search"}</button>
       <img className='w-12 h-12' src =   {USER_ICON}
  alt='userIcon' />
       <button className='font-bold text-white' onClick={handleSignOut}>(Sign Out)</button>
