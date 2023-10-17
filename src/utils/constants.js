@@ -9,4 +9,4 @@ export const API_OPTIONS = {
     },
   };
   export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
-  export const OPEN_AI_KEY = "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"
+  export const OPEN_AI_KEY = "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"

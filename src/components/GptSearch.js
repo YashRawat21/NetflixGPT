@@ -11,7 +11,7 @@ const GptSearch = () => {
         <img src= {BG_IMG} />
         </div>
         <GptSearchBar />
-        <GptMovieSuggestions />
+       <GptMovieSuggestions />
         
     </div>
   )
