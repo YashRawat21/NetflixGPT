@@ -47,8 +47,8 @@ const handleSignOut = () => {
     return () => unsubscribe();
   },[])
   return (
-    <div className='absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-screen  flex justify-between'>
-        <img className='w-40 cursor-pointer' src = {LOGO} alt='logo'/>
+    <div className='absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-screen  flex flex-col md:flex-row  justify-between'>
+        <img className='w-40 cursor-pointer mx-auto md:mx-0' src = {LOGO} alt='logo'/>
     { user && <div className='flex p-2 gap-3'>
       
       { showGptSearch && <select className='p-2 rounded-lg m-2 bg-gray-900 text-white ' onChange={handleLanguageChange}>
@@ -60,7 +60,7 @@ const handleSignOut = () => {
       <button className='px-4 py-2 mx-4 my-2 bg-purple-800 text-white rounded-lg' onClick={handleGptSearch}>{showGptSearch ? "HomePage" : "GPT Search"}</button>
       <img className='w-12 h-12' src =   {USER_ICON}
  alt='userIcon' />
-      <button className='font-bold text-white' onClick={handleSignOut}>(Sign Out)</button>
+      <button className='font-bold text-white' onClick={handleSignOut}>Sign Out</button>
      </div>}
     </div>
     
