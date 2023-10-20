@@ -74,10 +74,10 @@ export const Login = () => {
   return (
     <div>
         <Header />
-        <div className='absolute'>
-            <img src =  {BG_IMG}/> 
+        <div className='fixed '>
+            <img className = "h-screen object-cover md:w-screen "src =  {BG_IMG}/> 
         </div>
-        <form onSubmit = {(e) => e.preventDefault()}className='absolute p-12 bg-black w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-80'>
+        <form onSubmit = {(e) => e.preventDefault()}className='absolute p-12 bg-black md:w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-80'>
             <h1 className='font-bold text-3xl py-4'>{isSignIn ? "Sign In" : "Sign Up" }</h1>
             {!isSignIn &&<input ref={name} type='text' placeholder='Full Name' className='p-4 my-2 w-full bg-gray-700' />}
             <input ref={email} type='email' placeholder='Email Address' className='p-4 my-2 w-full bg-gray-700' />
