@@ -1,12 +1,14 @@
-import React, { useRef} from 'react'
+import React, { useRef, useState} from 'react'
 import language from '../utils/languageConstansts'
 
 import { useDispatch, useSelector } from 'react-redux'
 import openai from '../utils/openai';
 import { API_OPTIONS } from '../utils/constants';
 import { addMovieResult } from '../utils/gptSlice';
-const GptSearchBar = () => {
+import Spinner from './spinner';
+const GptSearchBar = ({setloading}) => {
     const langKey = useSelector(store => store.config.language);
+    const [loading, setLoading] = useState(false);
     const searchText = useRef(null);
      const dispatch = useDispatch()
     const searchMovieTMDB = async(movie) => {
@@ -19,6 +21,7 @@ const GptSearchBar = () => {
    
 
         try{
+          setLoading(true);
           const gptQuery = "Act as a movie recommendation system and suggest some movies for the query" + searchText.current.value + ". only give me names of 5 movies ,comma seperated like the example result given ahead . Example Result: Gadar , Sholay , Don , Golmaal , Koi mil gya"; 
           const gptResults =  await openai.chat.completions.create({
               messages: [{ role: 'user', content: gptQuery }],
@@ -30,20 +33,22 @@ const GptSearchBar = () => {
              const tmdbResults = await Promise.all(promiseArray) //this tmdbResults resolve all the 5 promises and give results.
               
               dispatch(addMovieResult({ movieNames: gptMovies, movieResults: tmdbResults }))
+              setLoading(false);
         }
         catch(err){
           console.log(err)
+          setLoading(false);
         }
         
   
     }
   return (
-    <div className='pt-[35%] md:pt-[10%] flex md:justify-center '>
-        <form className=' bg-black md:w-1/2 w-full grid grid-cols-12 mt-10 ' onSubmit={(e)=> e.preventDefault()}>
-            <input ref={searchText} className='p-4 my-4 ml-2  col-span-9 ' type='text' placeholder= {language[langKey].gptSearchPlaceHolder}/>
-            <button className='px-4 py-2 flex items-center justify-center mr-4 bg-red-700 text-white rounded-lg col-span-3 m-4' onClick={handleGptSearchClick}>{language[langKey].search}</button>
-        </form>
-    </div>
+      <div className='pt-[35%] md:pt-[10%] flex md:justify-center '>
+          <form className=' bg-black md:w-1/2 w-full grid grid-cols-12 mt-5 ' onSubmit={(e)=> e.preventDefault()}>
+              <input ref={searchText} className='p-4 my-4 ml-2  col-span-9 ' type='text' placeholder= {language[langKey].gptSearchPlaceHolder}/>
+              <button className='px-4 py-2 flex items-center justify-center mr-4 bg-red-700 text-white rounded-lg col-span-3 m-4' onClick={handleGptSearchClick}>{language[langKey].search}</button>
+          </form>
+      </div>
   )
 }
 
